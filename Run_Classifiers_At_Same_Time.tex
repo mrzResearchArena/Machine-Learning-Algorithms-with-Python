@@ -1,0 +1,950 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Run\_Classifiers\_At\_Same\_Time}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Machine Learning Classifiers
+(scikit-learn)}\label{machine-learning-classifiers-scikit-learn}
+
+    \subsection{Authors : Rafsanjani Muhammod \& Yeazullah
+Aziz}\label{authors-rafsanjani-muhammod-yeazullah-aziz}
+
+    \subsubsection{Avoiding warning}\label{avoiding-warning}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} Avoiding warning}
+        \PY{k+kn}{import} \PY{n+nn}{warnings}
+        \PY{k}{def} \PY{n+nf}{warn}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:} \PY{k}{pass}
+        \PY{n}{warnings}\PY{o}{.}\PY{n}{warn} \PY{o}{=} \PY{n}{warn}
+        \PY{c+c1}{\PYZsh{} \PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}}
+\end{Verbatim}
+
+    \subsubsection{Importing essential
+library}\label{importing-essential-library}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Essential Library}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{c+c1}{\PYZsh{} \PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}}
+\end{Verbatim}
+
+    \subsubsection{Loading the dataset}\label{loading-the-dataset}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} Load dataset}
+         \PY{n}{D} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/home/rafsanjani/Desktop/monodata.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+         \PY{n}{D} \PY{o}{=} \PY{n}{D}\PY{o}{.}\PY{n}{drop\PYZus{}duplicates}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} Return : each row are unique value}
+         \PY{c+c1}{\PYZsh{}   print(D.shape) \PYZsh{} Return : row, column}
+         \PY{c+c1}{\PYZsh{} \PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{D}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{D}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(278, 21)
+
+             0          1          2          3          4          5   \textbackslash{}
+0     31.878947   0.436414  14.864925  42.252833  10.276103   9.144008   
+1     12.773493   0.857822   6.595729   5.183923   4.495137   7.829791   
+2     29.506459   1.377185  19.167023  17.223346  17.435778  29.941994   
+3     45.474052   2.171144  27.655692  22.063534  13.254630  35.628275   
+4     27.059732   5.266138  24.234508  12.049606  13.223784  25.662224   
+5     26.648576   7.201495  19.412428  22.140922  10.964234  27.467605   
+6     29.119535   4.772717  18.706092   9.363417  10.772448  51.772431   
+7     90.500000   2.000000  34.500000  42.000000  27.500000  46.500000   
+8     16.419771   0.923602  10.350049  11.182768   5.879438  13.911936   
+9      8.748706   0.313611   3.006630   4.761503   1.893849   4.508689   
+10    29.974180   3.232539  19.795971  18.808486  11.644253  21.940464   
+11    55.917130   2.164977  27.786322  30.427384  19.944195  46.601618   
+12     9.516898   0.200129   4.102533   4.988537   4.525195   5.123084   
+13    31.124108   1.401671  22.611352  20.885825  13.658657  23.818998   
+14     9.409200   2.888764   7.126092   8.338050   7.804591   6.710747   
+15    30.000000   0.000000   9.000000   7.000000   5.000000  22.000000   
+16    29.433565   3.505625  19.031125  14.829930  10.101204  32.081270   
+17    11.204090   0.996893  20.411840  25.983695  18.640679  15.689049   
+18    28.023893   1.213780  18.518705  17.596743  11.355011  29.449666   
+19    10.608094   1.296899   9.678177  10.589293   9.097699  11.727422   
+20     3.500000   2.000000   0.500000   1.000000   1.500000   1.000000   
+21    18.728560   0.880944  14.266440  12.838985   7.952373  19.718093   
+22     7.878394   0.000000   0.722663   0.630392   1.759593  16.373235   
+23    62.030309   3.876600  34.182684  28.502334  19.952895  49.219356   
+24    17.208633   2.634892  13.403469  14.378830   9.033494  16.724035   
+25    14.000000   2.000000   5.000000   1.000000   1.000000   9.000000   
+26    41.799091   3.484240  24.508045  20.591219  14.637986  29.880614   
+27    16.814381   0.793395  12.381147  12.653434   7.208628  16.678740   
+28    15.185230   0.000000   3.618992   5.443848   0.097937  11.194652   
+29     8.200289   1.856511   3.291416   2.655031   3.965002   6.131192   
+..          {\ldots}        {\ldots}        {\ldots}        {\ldots}        {\ldots}        {\ldots}   
+248  124.389246   0.172626  46.063459  53.874216  22.238598  76.110825   
+249   22.934840   1.448894   9.570754   8.781046   1.899455   8.826469   
+250    2.275179   0.000000   0.398034   0.034602   1.501231   2.731793   
+251   30.104910   1.164007  23.896370  24.508159  17.435447  30.154862   
+252    9.456741   4.178321   4.855538   5.575179   1.991322   5.663416   
+253   15.142981   2.051510  10.937240  12.162304  13.336698  11.083566   
+254    7.000000   1.500000   0.000000   0.000000   1.500000   7.500000   
+255   16.357153   3.507617  11.796904   9.782164   7.511679  17.426397   
+256   10.798229   0.547078   3.465896   1.992843   4.192455   8.435779   
+257    2.631887   0.418413   1.736242   0.220523   2.532374   3.949971   
+258    8.229297   0.901293   4.369592   6.881591   2.556971   5.913332   
+259   31.531619   9.412106  28.001753  23.879145  15.471752  65.120540   
+260    9.891778   1.063529   6.760600   8.242649   4.113700  12.940859   
+261   19.266025   1.130491   7.774937   8.585691   1.658805   6.616826   
+262   30.233875  17.474189  30.545211  20.529689  14.775955  65.520344   
+263   48.616531   2.889448  32.133396  16.181317  17.417271  56.893856   
+264   28.003891   1.718347  19.882716  25.801070  10.259633  17.460976   
+265   11.182267   1.375532  10.174284  14.174082   7.292537   6.283834   
+266   17.475558   1.061139   8.538175  18.052600   4.947363  11.167212   
+267   17.072799   0.830625   8.834354   7.492923   5.748905  15.712549   
+268   30.354527   1.309463  22.814991  23.724757  16.655051  31.315168   
+269    7.540789   1.103260   3.700105   6.837935   2.091725   5.468799   
+270   37.122040   0.688216  24.435579  13.557403  18.587103  40.690123   
+271   24.007569   3.871937  15.876603  15.303825  17.093432  20.671707   
+272    3.061815   1.475419   1.725519   1.000000   2.176101   4.487867   
+273   20.328607   0.940953  11.001388  17.045312   4.350877  10.031379   
+274   41.253185   1.662685  27.304351  26.998738  19.059946  35.608158   
+275    8.090764   0.333325   6.816283  10.235265   2.112069   3.845509   
+276    4.712633   1.400182   0.822081   1.827789   3.782965   0.510636   
+277    6.317053   5.012890   2.803340   4.743114   1.721591   4.635015   
+
+            6          7          8          9  {\ldots}         11         12  \textbackslash{}
+0     2.957656  13.618921  22.605322  23.820069 {\ldots}  11.762420   3.304842   
+1     0.509491   6.230910   6.832383   9.858047 {\ldots}   7.907631   7.358403   
+2     3.730435  23.067585  22.055324  24.021771 {\ldots}  24.413899  12.772484   
+3     4.589759  25.428206  24.063574  30.738867 {\ldots}  21.895481  18.190512   
+4     1.227263  16.416353  13.340650  23.446813 {\ldots}  17.012233  23.632676   
+5     6.249618  21.660829  17.389375  25.754882 {\ldots}  18.486434  22.337281   
+6     0.590906  22.453437  14.297445  28.524012 {\ldots}  15.999588  13.701873   
+7    17.000000  42.500000  24.000000  79.500000 {\ldots}  27.000000  34.000000   
+8     1.821375  11.385246   9.798162  14.536601 {\ldots}   9.003433  10.239091   
+9     0.648948   3.312956   2.754154   6.880549 {\ldots}   1.598568   1.380729   
+10    6.171095  22.878370  16.821263  38.709657 {\ldots}  13.037691  15.879432   
+11    5.597017  29.352018  23.274549  37.323073 {\ldots}  28.424399  21.116536   
+12    2.239406   4.226955   5.496089   1.388491 {\ldots}   4.026082   2.414103   
+13    4.032605  20.445754  18.669454  28.468802 {\ldots}  15.601069  17.423417   
+14    2.376401  10.079741   9.478943  14.408974 {\ldots}   6.345054   5.482089   
+15    1.000000   9.000000  12.000000  24.000000 {\ldots}  10.000000   1.000000   
+16    9.223711  19.171717  19.160272  22.965008 {\ldots}  17.145750  18.125036   
+17    2.970032  16.571940  12.814431  18.689993 {\ldots}  17.429212  10.670658   
+18    3.528770  17.969424  15.019329  25.156781 {\ldots}  14.832549  12.175126   
+19    2.474348   9.177967   8.231110  12.792159 {\ldots}   8.782537   6.782649   
+20    0.000000   4.500000   1.000000   4.500000 {\ldots}   1.000000   0.500000   
+21    1.962553  10.898233  10.672790  15.508705 {\ldots}   7.555623  10.196841   
+22    0.441828   3.929370   2.339625   6.743675 {\ldots}   4.500594   2.493292   
+23    5.516421  33.551722  24.357458  45.822568 {\ldots}  28.877307  24.077493   
+24    4.572859  15.882376  12.880601  24.696016 {\ldots}   8.603455   9.566684   
+25    0.000000   3.000000   4.000000  13.000000 {\ldots}   8.000000   9.000000   
+26    4.656481  25.754576  17.208084  33.149172 {\ldots}  19.675759  17.244976   
+27    1.657054   8.438727  10.259314  11.732512 {\ldots}   6.704558   7.917051   
+28    0.097937   3.472190  16.460408   4.365743 {\ldots}   1.907713   4.808057   
+29    1.332384   5.951721   6.051196   8.247525 {\ldots}   5.795242   2.049889   
+..         {\ldots}        {\ldots}        {\ldots}        {\ldots} {\ldots}        {\ldots}        {\ldots}   
+248   5.294059  40.886482  51.870857  75.387114 {\ldots}  35.196316  14.969533   
+249   2.422936   6.261505   6.823316  15.027661 {\ldots}   4.163068   2.174035   
+250   0.573579   1.359968   6.017739   1.946883 {\ldots}   1.758274   1.390197   
+251   4.295513  31.527793  21.556833  44.156689 {\ldots}  21.360663  18.045489   
+252   2.479958   1.882742   2.215831   5.269055 {\ldots}   1.241307   4.218739   
+253   2.329881  13.989877  14.068873  19.645077 {\ldots}  11.559984   8.288623   
+254   0.500000   4.000000   3.000000   7.500000 {\ldots}   0.000000   0.000000   
+255   6.991906  11.468162   8.103585  15.654083 {\ldots}   6.942601  10.627107   
+256   0.340565   6.376565   4.598234   7.221580 {\ldots}   1.705921   0.000000   
+257   0.218696   4.168192   0.000000   3.549530 {\ldots}   0.184028   0.000000   
+258   2.124517   6.224174   6.186536  11.035811 {\ldots}   2.980999   3.758479   
+259   4.467768  19.628881  22.427760  28.620746 {\ldots}  19.099746  18.977847   
+260   1.137475   6.390223   6.307879   7.213921 {\ldots}   5.183218   4.252364   
+261   2.152735   6.836234   6.568352  16.621956 {\ldots}   6.560606   4.173425   
+262   2.717102  16.211105  17.936735  22.444359 {\ldots}  18.939561  30.011434   
+263   6.504133  27.826642  21.088777  33.652976 {\ldots}  39.240197  18.021889   
+264   4.469974  10.878794  10.716317  27.205664 {\ldots}   7.101898  12.468127   
+265   2.041263   5.878167   9.639627   9.926487 {\ldots}   8.111750   9.989217   
+266   3.257303   9.833016  16.535949  18.401333 {\ldots}   7.401277   9.133795   
+267   3.105667   8.249924   9.094696  13.736098 {\ldots}   7.024975   7.674594   
+268   4.390719  32.876376  22.301110  44.522090 {\ldots}  22.545305  18.203085   
+269   2.388460   6.754317   7.750213   8.943494 {\ldots}   3.325885   2.981585   
+270   5.013206  15.038639  15.595770  28.792507 {\ldots}  20.704859   8.603426   
+271   6.112164  23.874307  14.793571  35.275519 {\ldots}  12.308957  12.096128   
+272   0.000000   2.287268   0.000000   4.238423 {\ldots}   0.213011   0.000000   
+273   2.571561   9.422501  11.132179  18.351313 {\ldots}   5.191226   6.756515   
+274   5.260675  26.259621  24.852537  38.024891 {\ldots}  22.665054  21.118775   
+275   2.133378   8.951968   5.916079  10.292114 {\ldots}   6.402733   1.166797   
+276   0.934270   2.959759   6.465208  21.703019 {\ldots}   2.551930   6.550973   
+277   1.764842   4.188473   5.442524   5.506024 {\ldots}   2.479256   3.686578   
+
+            13         14         15         16         17         18  \textbackslash{}
+0    11.040083   6.827287  17.541407  13.663309  23.124199   0.841823   
+1     5.230102   6.632662   9.818324  11.899385  15.539906   0.802143   
+2    14.999995  15.819657  34.166990  29.487096  21.799881   2.238363   
+3    15.964934  16.682218  29.771854  38.712343  35.624337   4.421584   
+4     9.300391  18.733020  23.912026  22.049993  29.353605   6.099477   
+5    13.643306  15.825133  31.899009  32.803701  30.988117   6.166444   
+6     9.772717   5.883828  28.995002  28.746565  28.292224   1.000000   
+7    21.000000  50.500000  66.500000  51.000000  58.500000  10.000000   
+8     7.282626   7.662447  10.158416  14.901425  14.084472   2.537779   
+9     3.983211   7.762739   3.915098   3.881487   4.006463   0.320941   
+10   13.086607  20.527252  22.510262  16.829556  23.197093   2.288294   
+11   20.071537  21.375529  35.411735  42.093334  35.361695   4.120429   
+12    1.894125   2.021570   5.746451   6.858210   6.969856   1.124568   
+13   13.081720  17.618295  19.074519  24.333297  25.819600   4.057952   
+14    5.010214   5.323018   9.093048   7.087312  10.222282   1.604050   
+15   23.000000   5.000000  13.000000  11.000000   7.000000   3.000000   
+16   15.407028  17.427836  21.470474  22.740239  22.988303   6.396602   
+17   12.485455   8.901322  14.211832  12.360842  14.297911   1.706987   
+18   11.218623  13.825730  19.762335  23.210426  22.739679   3.732737   
+19    6.334453   7.479377  11.789404  11.758441  11.591263   3.208637   
+20    0.000000   1.500000   4.000000   2.500000   6.000000   0.000000   
+21    4.779371   6.332490  11.014715  17.393482  14.743054   2.894116   
+22    1.650240   0.862717   9.792214   4.842245   4.032818   1.348500   
+23   18.264251  24.839331  37.818385  46.454861  47.215040   5.466389   
+24    9.004378  13.716093  14.073495  12.144620  14.956607   2.189111   
+25    6.000000   4.000000  12.000000   6.000000   7.000000   4.000000   
+26   13.476076  18.301284  23.630129  26.773479  32.365092   4.731644   
+27    6.278316   5.417172  12.116865  16.065471  12.057913   2.147864   
+28    4.330298   2.953040   6.123404   5.096096  11.249319   0.195874   
+29    2.338184   2.363287   8.319704   6.016922   6.126070   1.275953   
+..         {\ldots}        {\ldots}        {\ldots}        {\ldots}        {\ldots}        {\ldots}   
+248  62.503138  46.532291  59.903903  47.754593  43.939895   6.733377   
+249   9.353054  12.048591   6.522661   8.358267   8.172523   2.283235   
+250   0.493681   7.983894   2.434460   1.977025   1.940098   0.199022   
+251  19.904688  21.421608  34.086436  29.920104  35.850703   2.684970   
+252   2.706751   8.258543   2.933766   3.622391   3.819396   2.332179   
+253   7.575656  10.493977  16.435304  11.529431  16.417327   2.300947   
+254   0.000000   1.500000   1.500000   3.000000   4.500000   0.000000   
+255   7.012573  11.188181  14.361907   8.958387  13.482256   4.819140   
+256   1.081191   4.143209   4.726475   4.108084   1.842332   2.247638   
+257   0.887323   1.000000   2.755444   1.388991   3.362911   0.000000   
+258   3.959314   7.625730   5.958495   5.419310   6.056779   0.843904   
+259  14.634964  13.511393  46.641868  28.293350  18.680414   5.174663   
+260   3.662464   5.054303   6.967471  10.617388  10.224804   1.394032   
+261  11.134760  11.013103   7.930183   7.672240   7.727995   2.330191   
+262  12.694026  10.514463  40.249252  36.566208  22.843165   5.922808   
+263  20.050109  21.107134  36.764960  38.120279  32.272687   9.686281   
+264  10.045035  12.851233  23.284148  14.254059  17.474913   3.895959   
+265   8.028108   6.491426   9.153489   7.387854   7.788523   0.475248   
+266   9.735884  13.340701  12.761160   8.418122  11.597348   3.290583   
+267   7.885719  11.104351  10.328566   9.067405   7.805965   2.835786   
+268  20.369799  20.814830  35.511795  31.954508  36.814599   2.502489   
+269   3.918510   8.822954   6.575558   5.614446   5.555061   1.550017   
+270  12.479624  14.583105  28.822291  25.184128  23.313276   5.205664   
+271   8.893267  19.012332  19.761117  14.412219  23.100989   4.469981   
+272   3.338972   1.000000   1.250116   0.580374   2.905215   0.274714   
+273   7.800665  15.405596  10.336453   8.940383  11.087188   2.089405   
+274  18.790415  19.690950  27.633457  40.343920  34.588802   5.173234   
+275   2.326062   8.952279   4.213363   4.378337   6.646777   0.381568   
+276   2.143037   4.125674  11.502283   6.317738   4.919783   2.304603   
+277   3.298381   4.289046   4.382953   4.981193   4.571578   0.633116   
+
+            19  20  
+0     4.193320  -1  
+1     3.276656  -1  
+2    11.937721  -1  
+3    11.880077  -1  
+4    14.797856  -1  
+5    14.404472  -1  
+6    12.297428  -1  
+7    21.500000  -1  
+8     5.825278  -1  
+9     2.395156  -1  
+10    6.826142  -1  
+11   18.961684  -1  
+12    4.017610  -1  
+13   11.554390  -1  
+14    4.855885  -1  
+15    9.000000  -1  
+16   13.716242  -1  
+17   13.325879  -1  
+18    8.776089  -1  
+19    5.697948  -1  
+20    2.000000  -1  
+21    5.762703  -1  
+22    0.502892  -1  
+23   19.904820  -1  
+24    6.259495  -1  
+25    6.000000  -1  
+26   13.178515  -1  
+27    5.593760  -1  
+28    0.195874  -1  
+29    4.253174  -1  
+..         {\ldots}  ..  
+248  19.080687   1  
+249   3.400859   1  
+250   0.523776   1  
+251   9.635971   1  
+252   0.993018   1  
+253  13.146648   1  
+254   1.500000   1  
+255   8.941937   1  
+256   0.914297   1  
+257   0.546927   1  
+258   2.693732   1  
+259  13.116168   1  
+260   2.844852   1  
+261   2.704174   1  
+262  15.412857   1  
+263  17.061099   1  
+264   7.436631   1  
+265   5.484195   1  
+266   4.963489   1  
+267   7.375263   1  
+268   9.983461   1  
+269   4.318317   1  
+270  20.082637   1  
+271  12.186918   1  
+272   1.237854   1  
+273   4.139329   1  
+274  15.979330   1  
+275   2.355134   1  
+276   1.527400   1  
+277   2.985759   1  
+
+[278 rows x 21 columns]
+
+    \end{Verbatim}
+
+    \subsubsection{Divide features ( X ) and classes ( y
+)}\label{divide-features-x-and-classes-y}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} Divide features (X) and classes (y)}
+         \PY{n}{X} \PY{o}{=} \PY{n}{D}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{20}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         \PY{n}{y} \PY{o}{=} \PY{n}{D}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         \PY{c+c1}{\PYZsh{} \PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[ 31.87894693   0.43641389  14.86492535 {\ldots},  23.1241993    0.84182345
+    4.19332   ]
+ [ 12.77349297   0.85782219   6.59572893 {\ldots},  15.53990602   0.80214332
+    3.27665617]
+ [ 29.50645867   1.37718472  19.16702346 {\ldots},  21.79988149   2.23836279
+   11.93772103]
+ {\ldots}, 
+ [  8.09076416   0.33332467   6.81628278 {\ldots},   6.64677746   0.38156841
+    2.35513374]
+ [  4.71263264   1.4001818    0.82208071 {\ldots},   4.91978346   2.30460257
+    1.52740013]
+ [  6.31705298   5.01289044   2.80333981 {\ldots},   4.57157784   0.63311594
+    2.98575905]]
+
+[-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+ -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+ -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+ -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+ -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+ -1 -1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1
+  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1
+  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1
+  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1
+  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1
+  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1
+  1  1  1]
+
+    \end{Verbatim}
+
+    \subsubsection{Handling the missing values with
+"mean"}\label{handling-the-missing-values-with-mean}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} Handle the missing values with \PYZdq{}mean\PYZdq{}}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{Imputer}
+         \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}  \PY{l+m+mi}{1}\PY{p}{,}  \PY{l+m+mi}{2}\PY{p}{,}  \PY{l+m+mi}{3}\PY{p}{,}  \PY{l+m+mi}{4}\PY{p}{,}  \PY{l+m+mi}{5}\PY{p}{,}  \PY{l+m+mi}{6}\PY{p}{,}  \PY{l+m+mi}{7}\PY{p}{,}  \PY{l+m+mi}{8}\PY{p}{,}  \PY{l+m+mi}{9}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{11}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{13}\PY{p}{,} \PY{l+m+mi}{14}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{17}\PY{p}{,} \PY{l+m+mi}{18}\PY{p}{,} \PY{l+m+mi}{19}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PYZbs{}
+             \PY{n}{Imputer}\PY{p}{(}\PY{n}{strategy}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}  \PY{l+m+mi}{1}\PY{p}{,}  \PY{l+m+mi}{2}\PY{p}{,}  \PY{l+m+mi}{3}\PY{p}{,}  \PY{l+m+mi}{4}\PY{p}{,}  \PY{l+m+mi}{5}\PY{p}{,}  \PY{l+m+mi}{6}\PY{p}{,}  \PY{l+m+mi}{7}\PY{p}{,}  \PY{l+m+mi}{8}\PY{p}{,}  \PY{l+m+mi}{9}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{11}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{13}\PY{p}{,} \PY{l+m+mi}{14}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{16}\PY{p}{,}
+                \PY{l+m+mi}{17}\PY{p}{,} \PY{l+m+mi}{18}\PY{p}{,} \PY{l+m+mi}{19}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} \PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}}
+         
+         \PY{c+c1}{\PYZsh{} You can use another stategy = \PYZsq{}median\PYZsq{} \PYZam{} stategy = \PYZsq{}most\PYZus{}frequent\PYZsq{}}
+\end{Verbatim}
+
+    \subsubsection{Spliting the dataset}\label{spliting-the-dataset}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} Spliting the dataset}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PYZbs{}
+             \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{train\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.75}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} \PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}}
+\end{Verbatim}
+
+    \subsubsection{Features scalling}\label{features-scalling}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{StandardScaler}\PY{p}{,} \PY{n}{MinMaxScaler}
+         \PY{n}{scale} \PY{o}{=} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}
+         \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{scale}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+         \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{scale}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} \PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}}
+\end{Verbatim}
+
+    \subsubsection{Machine Learning
+Classifiers}\label{machine-learning-classifiers}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neighbors} \PY{k}{import} \PY{n}{KNeighborsClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{tree} \PY{k}{import} \PY{n}{DecisionTreeClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{svm} \PY{k}{import} \PY{n}{SVC}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{naive\PYZus{}bayes} \PY{k}{import} \PY{n}{GaussianNB}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{BaggingClassifier}\PY{p}{,} \PYZbs{}
+                                      \PY{n}{RandomForestClassifier}\PY{p}{,}\PYZbs{}
+                                      \PY{n}{AdaBoostClassifier}\PY{p}{,}\PYZbs{}
+                                      \PY{n}{GradientBoostingClassifier}
+                     
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{discriminant\PYZus{}analysis} \PY{k}{import} \PY{n}{LinearDiscriminantAnalysis}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{discriminant\PYZus{}analysis} \PY{k}{import} \PY{n}{QuadraticDiscriminantAnalysis}
+         \PY{k+kn}{from} \PY{n+nn}{xgboost} \PY{k}{import} \PY{n}{XGBClassifier}
+         
+         \PY{c+c1}{\PYZsh{} \PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}}
+\end{Verbatim}
+
+    \subsubsection{Evaluation Matrix}\label{evaluation-matrix}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{accuracy\PYZus{}score}\PY{p}{,} \PYZbs{}
+                                     \PY{n}{log\PYZus{}loss}\PY{p}{,} \PYZbs{}
+                                     \PY{n}{classification\PYZus{}report}\PY{p}{,} \PYZbs{}
+                                     \PY{n}{confusion\PYZus{}matrix}
+         
+         \PY{c+c1}{\PYZsh{} \PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}}
+         
+         \PY{k+kn}{from} \PY{n+nn}{pandas\PYZus{}ml} \PY{k}{import} \PY{n}{ConfusionMatrix}   \PY{c+c1}{\PYZsh{} I\PYZsq{}m using \PYZsq{}pandas\PYZus{}ml\PYZsq{} for better confusion matrix than \PYZsq{}scikit\PYZhy{}learn\PYZsq{}.}
+\end{Verbatim}
+
+    \subsubsection{Classifiers}\label{classifiers}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{classifiers} \PY{o}{=} \PY{p}{[}
+             \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+             \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}
+             \PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+             \PY{n}{SVC}\PY{p}{(}\PY{n}{kernel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rbf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{probability}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{,}
+             \PY{n}{GaussianNB}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+             \PY{n}{BaggingClassifier}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+             \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+             \PY{n}{AdaBoostClassifier}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+             \PY{n}{GradientBoostingClassifier}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+             \PY{n}{LinearDiscriminantAnalysis}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+             \PY{n}{QuadraticDiscriminantAnalysis}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+             \PY{n}{XGBClassifier}\PY{p}{(}\PY{p}{)}
+         \PY{p}{]}
+\end{Verbatim}
+
+    \subsubsection{Run all classifiers}\label{run-all-classifiers}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{k}{for} \PY{n}{classifier} \PY{o+ow}{in} \PY{n}{classifiers}\PY{p}{:}
+         
+             \PY{n}{model} \PY{o}{=} \PY{n}{classifier}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+             \PY{n}{y\PYZus{}artificial} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)} \PY{c+c1}{\PYZsh{} Predicted}
+         
+             \PY{n}{name} \PY{o}{=} \PY{n}{classifier}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}class\PYZus{}\PYZus{}}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}}
+         
+             \PY{n}{TN}\PY{p}{,} \PY{n}{FP}\PY{p}{,} \PY{n}{FN}\PY{p}{,} \PY{n}{TP} \PY{o}{=} \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{o}{=}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{o}{=}\PY{n}{y\PYZus{}artificial}\PY{p}{)}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{*} \PY{l+m+mi}{43}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Classifier : }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{name}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy : }\PY{l+s+si}{\PYZob{}0:.3f\PYZcb{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{o}{=}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{o}{=}\PY{n}{y\PYZus{}artificial}\PY{p}{)}\PY{o}{*}\PY{l+m+mf}{100.0}\PY{p}{)}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} print(\PYZsq{}\PYZus{}\PYZsq{}*40)}
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Confusion Matrix :}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{CM} \PY{o}{=} \PY{n}{ConfusionMatrix}\PY{p}{(}\PY{n}{y\PYZus{}true} \PY{o}{=} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{y\PYZus{}artificial}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{CM}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TN = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{TN}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FP = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{FP}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FN = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{FN}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TP = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{TP}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} CM.print\PYZus{}stats() \PYZsh{} For Statistics based\PYZhy{}on confusion matrix.}
+         
+         \PY{c+c1}{\PYZsh{} \PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Classifier : LogisticRegression
+Accuracy : 71.429 \%
+
+Confusion Matrix :
+Predicted  -1   1  \_\_all\_\_
+Actual                    
+-1         22   9       31
+1          11  28       39
+\_\_all\_\_    33  37       70
+
+TN = 22
+FP = 9
+FN = 11
+TP = 28
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Classifier : KNeighborsClassifier
+Accuracy : 65.714 \%
+
+Confusion Matrix :
+Predicted  -1   1  \_\_all\_\_
+Actual                    
+-1         20  11       31
+1          13  26       39
+\_\_all\_\_    33  37       70
+
+TN = 20
+FP = 11
+FN = 13
+TP = 26
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Classifier : DecisionTreeClassifier
+Accuracy : 64.286 \%
+
+Confusion Matrix :
+Predicted  -1   1  \_\_all\_\_
+Actual                    
+-1         18  13       31
+1          12  27       39
+\_\_all\_\_    30  40       70
+
+TN = 18
+FP = 13
+FN = 12
+TP = 27
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Classifier : SVC
+Accuracy : 70.000 \%
+
+Confusion Matrix :
+Predicted  -1   1  \_\_all\_\_
+Actual                    
+-1         22   9       31
+1          12  27       39
+\_\_all\_\_    34  36       70
+
+TN = 22
+FP = 9
+FN = 12
+TP = 27
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Classifier : GaussianNB
+Accuracy : 57.143 \%
+
+Confusion Matrix :
+Predicted  -1   1  \_\_all\_\_
+Actual                    
+-1         12  19       31
+1          11  28       39
+\_\_all\_\_    23  47       70
+
+TN = 12
+FP = 19
+FN = 11
+TP = 28
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Classifier : BaggingClassifier
+Accuracy : 68.571 \%
+
+Confusion Matrix :
+Predicted  -1   1  \_\_all\_\_
+Actual                    
+-1         21  10       31
+1          12  27       39
+\_\_all\_\_    33  37       70
+
+TN = 21
+FP = 10
+FN = 12
+TP = 27
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Classifier : RandomForestClassifier
+Accuracy : 65.714 \%
+
+Confusion Matrix :
+Predicted  -1   1  \_\_all\_\_
+Actual                    
+-1         23   8       31
+1          16  23       39
+\_\_all\_\_    39  31       70
+
+TN = 23
+FP = 8
+FN = 16
+TP = 23
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Classifier : AdaBoostClassifier
+Accuracy : 61.429 \%
+
+Confusion Matrix :
+Predicted  -1   1  \_\_all\_\_
+Actual                    
+-1         17  14       31
+1          13  26       39
+\_\_all\_\_    30  40       70
+
+TN = 17
+FP = 14
+FN = 13
+TP = 26
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Classifier : GradientBoostingClassifier
+Accuracy : 78.571 \%
+
+Confusion Matrix :
+Predicted  -1   1  \_\_all\_\_
+Actual                    
+-1         26   5       31
+1          10  29       39
+\_\_all\_\_    36  34       70
+
+TN = 26
+FP = 5
+FN = 10
+TP = 29
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Classifier : LinearDiscriminantAnalysis
+Accuracy : 64.286 \%
+
+Confusion Matrix :
+Predicted  -1   1  \_\_all\_\_
+Actual                    
+-1         18  13       31
+1          12  27       39
+\_\_all\_\_    30  40       70
+
+TN = 18
+FP = 13
+FN = 12
+TP = 27
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Classifier : QuadraticDiscriminantAnalysis
+Accuracy : 65.714 \%
+
+Confusion Matrix :
+Predicted  -1   1  \_\_all\_\_
+Actual                    
+-1         19  12       31
+1          12  27       39
+\_\_all\_\_    31  39       70
+
+TN = 19
+FP = 12
+FN = 12
+TP = 27
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Classifier : XGBClassifier
+Accuracy : 74.286 \%
+
+Confusion Matrix :
+Predicted  -1   1  \_\_all\_\_
+Actual                    
+-1         24   7       31
+1          11  28       39
+\_\_all\_\_    35  35       70
+
+TN = 24
+FP = 7
+FN = 11
+TP = 28
+
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
