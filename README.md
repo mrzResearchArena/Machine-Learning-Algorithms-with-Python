@@ -1,4 +1,4 @@
-## Machine Learning Algorithms with Python
+# Machine Learning Algorithms with Python
 
 ### DATA BALANCING METHODS
 
