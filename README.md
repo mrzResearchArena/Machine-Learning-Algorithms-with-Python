@@ -1,4 +1,6 @@
-# DATA BALANCING METHODS
+## Machine Learning Algorithms with Python
+
+### DATA BALANCING METHODS
 
 Researchers have previously proposed some techniques for Data Balancing Methods :
 
